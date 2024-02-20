@@ -14,8 +14,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true })); // 배열을 다룰 수 있는 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -37,5 +38,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// 몽구스 연결
+const mongoose = require('mongoose');
+mongoose.connect(process.env.DB_CONNECT)
+  .then(() => console.log('MongoDB conected'))
+  .catch((err) => {
+    console.log(err);
+  });
 
 module.exports = app;
