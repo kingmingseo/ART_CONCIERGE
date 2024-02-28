@@ -17,8 +17,6 @@ const adminOrderRouter = require("./routes/admin/adminOrder"); // 관리자 페�
 
 const orderRouter = require("./routes/orderRouter"); // 주문
 
-const getUserFromJWT = require("./middlewares/get-user-from-jwt");
-
 require("./passport")();
 
 var app = express();
@@ -46,7 +44,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // 배열을 다룰 수 있는
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(getUserFromJWT); // 로그인을 위한 미들웨어
 
 app.use("/", indexRouter);
 app.use("/api/admin", adminRouter); //관리자 라우터 (전시 + 카테고리)
