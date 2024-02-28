@@ -1,10 +1,10 @@
 const { User } = require("../db/index.js");
 
 //회원정보 조회
-async function getOneUSer() {
-  const users = await User.find({});
+async function getOneUser(_id) {
+  const users = await User.find({ _id });
   const userList = users.map((user) => ({
-    _id: user._id,
+    // _id: user._id,
     name: user.name,
     email: user.email,
     userAddress: user.userAddress,
@@ -34,4 +34,4 @@ async function deleteOneUser(_id) {
   const deleteUser = await User.deleteMany({ _id: { $in: _id } });
   return deleteUser;
 }
-module.exports = { getOneUSer, putOneUser, deleteOneUser };
+module.exports = { getOneUser, putOneUser, deleteOneUser };
