@@ -1,11 +1,15 @@
 const { Schema } = require("mongoose");
 
 const orderSchema = new Schema({
-  //주문자 관련 정보 (주문자 이름, 배송지, 전화번호)
-  // userId: {  // 이게 왜 필요??????????🔥
-  //   type: String,
-  //   // required: true,
-  // },
+  /* customerId: {
+    type: Schema.Types.ObjectId,
+    ref: "User", // 'User' 모델 참조
+    required: true,
+  }, */
+  userId: {
+    type: String,
+    required: true,
+  },
   name:{
     type: String,
     required: true,

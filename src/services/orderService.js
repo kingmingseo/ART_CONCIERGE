@@ -1,14 +1,20 @@
 const { Order } = require('../db');
+const { User } = require('../db');
 
 const orderService = {
     // 주문하기
     async createOrder({
+        customerId,
         name,
         phone,
         userAddress,
         item: [{ exhibitId, exhibitName, quantity, price, image }],
-        orderedDate }) {
+        orderedDate 
+    }) {
+        const user = await User.findOne({ customerId }).lean();
+        console.log("User ID is " + user._id);
         const createOrder = await Order.create({
+            customerId: user._id,
             name,
             phone,
             userAddress,
@@ -57,10 +63,10 @@ const orderService = {
     //사용자의 주문 수정 (주문 전 주문 취소)
     async deleteOrder(_id) {
         try {
-            const order = await Order.find({_id}).lean();
+            const order = await Order.find({ _id }).lean();
             const deliveryStatus = order[0].deliveryStatus;
             if (deliveryStatus == 1) {
-                await Order.deleteOne({ _id});
+                await Order.deleteOne({ _id });
                 console.log("유저 주문이 취소되었습니다.");
                 return 1;
             } else {
