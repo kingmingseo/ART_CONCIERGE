@@ -22,11 +22,9 @@ const $exhibitionInfo = document.querySelector('#exhibitionInfo');
 const $modal = document.querySelector('.modal')
 const $modalCheck = document.querySelector('#modalCheck')
 
-const currentUrl = window.location.href;
-const match = currentUrl.match(/\/exhibits\/productDetail\/([^\/]+)/);
-const exhibitId = match[1]
-
-insertExhibitionInfo();
+// const currentUrl = window.location.href;
+// const match = currentUrl.match(/\/exhibits\/productDetail\/([^\/]+)/);
+// const exhibitId = match[1]
 
 $modalCheck.addEventListener('click', () => {
     $modal.classList.remove('is-active')
@@ -68,8 +66,9 @@ async function getExhibitionName() {
     const $startDate = document.querySelector('#startDate')
     const $endDate = document.querySelector('#endDate')
     const $location = document.querySelector('#location')
+    const $image = document.querySelector('#image')
 
-    const res = await fetch(`http://localhost:5001/api/exhibits/${value}`);
+    const res = await fetch(`http://localhost:5001/api/exhibits?${value}`);
     const data = await res.json(); 
     console.log(data)
     
@@ -78,10 +77,12 @@ async function getExhibitionName() {
     $startDate.textContent=data.startDate
     $endDate.textContent=data.endDate
     $location.textContent=data.exhibitAddress
-    console.log($exhibitName);
+    $image=data.image
 
-    $exhibitionInfo.innerHTML = `
-    <ul>
+    // console.log($exhibitName);
+
+    $exhibitionInfo.innerHTML = 
+    `<ul>
         <li>
             <span class="subject" style="font-weight: bold;"><strong>제목</strong></span>
             <span class="column">${data.exhibitName}</span>
