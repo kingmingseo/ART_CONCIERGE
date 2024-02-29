@@ -13,15 +13,22 @@ window.onload=async function(){
 
 import { getDB } from '../../../indexedDB.js';
 
+const db = await getDB();
 const $minusButton = document.querySelector('.minus');
 const $plusButton = document.querySelector('.plus');
 const $countElement = document.querySelector('.cartCount');
 const $addCart = document.querySelector('#addCart')
-const db = await getDB();
+const $exhibitionInfo = document.querySelector('#exhibitionInfo');
 const $modal = document.querySelector('.modal')
 const $modalCheck = document.querySelector('#modalCheck')
 
-$modalCheck.addEventListener('click',()=>{
+const currentUrl = window.location.href;
+const match = currentUrl.match(/\/exhibits\/productDetail\/([^\/]+)/);
+const exhibitId = match[1]
+
+insertExhibitionInfo();
+
+$modalCheck.addEventListener('click', () => {
     $modal.classList.remove('is-active')
 })
 
@@ -41,17 +48,17 @@ $plusButton.addEventListener('click', function () {
 $addCart.addEventListener('click', () => {
     let store = db.transaction('shoppingCart', 'readwrite').objectStore('shoppingCart');
     let addReq = store.add({
-        exhibitId : "test",
+        exhibitId: exhibitId,
         exhibitName: document.querySelector('#exhibitName').textContent,
-        quantity :document.querySelector('#quantity').textContent ,
-        price :document.querySelector('#price').textContent , 
+        quantity: document.querySelector('#quantity').textContent,
+        price: document.querySelector('#price').textContent,
     });
     addReq.addEventListener('success', function (event) {
         console.log(event);
     });
 });
 
-const $exhibitionInfo = document.querySelector('#exhibitionInfo');
+// const $exhibitionInfo = document.querySelector('#exhibitionInfo');
 
 getExhibitionName();
 
