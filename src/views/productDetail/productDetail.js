@@ -1,30 +1,23 @@
-let value;
 
-window.onload = async function () {
-    let queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-
-    urlParams.forEach(function (a) {
-        value = a;
-    });
-
-    console.log(value);
-}
-
+import { response } from 'express';
 import { getDB } from '../../../indexedDB.js';
 
+const db = await getDB();
 const db = await getDB();
 const $minusButton = document.querySelector('.minus');
 const $plusButton = document.querySelector('.plus');
 const $countElement = document.querySelector('.cartCount');
 const $addCart = document.querySelector('#addCart')
 const $exhibitionInfo = document.querySelector('#exhibitionInfo');
+const $exhibitionInfo = document.querySelector('#exhibitionInfo');
 const $modal = document.querySelector('.modal')
 const $modalCheck = document.querySelector('#modalCheck')
 
-// const currentUrl = window.location.href;
-// const match = currentUrl.match(/\/exhibits\/productDetail\/([^\/]+)/);
-// const exhibitId = match[1]
+const currentUrl = window.location.href;
+const match = currentUrl.match(/\/exhibits\/productDetail\/([^\/]+)/);
+const exhibitId = match[1]
+
+insertExhibitionInfo();
 
 $modalCheck.addEventListener('click', () => {
     $modal.classList.remove('is-active')
@@ -47,7 +40,10 @@ $addCart.addEventListener('click', () => {
     let store = db.transaction('shoppingCart', 'readwrite').objectStore('shoppingCart');
     let addReq = store.add({
         exhibitId: exhibitId,
+        exhibitId: exhibitId,
         exhibitName: document.querySelector('#exhibitName').textContent,
+        quantity: document.querySelector('#quantity').textContent,
+        price: document.querySelector('#price').textContent,
         quantity: document.querySelector('#quantity').textContent,
         price: document.querySelector('#price').textContent,
     });
@@ -56,53 +52,43 @@ $addCart.addEventListener('click', () => {
     });
 });
 
-// const $exhibitionInfo = document.querySelector('#exhibitionInfo');
+// function getExhibition(){
+//     fetch(`http://localhost:5001/api/exhibits/65dea2262f8985a75a3382e1`)
+//     .then(response=>console.log(response)).catch(response=>console.log(response))
+// }
 
-getExhibitionName();
+getExhibition()
 
-async function getExhibitionName() {
-    const $exhibitName = document.querySelector('#exhibitName')
-    const $price = document.querySelector('#price')
-    const $startDate = document.querySelector('#startDate')
-    const $endDate = document.querySelector('#endDate')
-    const $location = document.querySelector('#location')
-    const $image = document.querySelector('.img-container img');
+async function insertExhibitionInfo() {
+    const $exhibitName = document.querySelector('#exhibitName');
+    const $price = document.querySelector('#price');
+    const $startDate = document.querySelector('#startDate');
+    const $endDate = document.querySelector('#endDate');
+    const $exhibitAddress = document.querySelector('#exhibitAddress');
 
-    const imageUrl = data.imageUrl;
-
-    const res = await fetch(`http://localhost:5001/api/exhibits?${value}`);
+    const res = await fetch(url);
     const data = await res.json();
-    console.log(data)
 
-    $exhibitName.textContent = data.exhibitName
-    $price.textContent = data.price
-    $startDate.textContent = data.startDate
-    $endDate.textContent = data.endDate
-    $location.textContent = data.exhibitAddress
-    $image.src = imageUrl;
+    $exhibitName.textContent = data.exhibitName;
+    $price.textContent = data.price;
+    $startDate.textContent = data.startDate;
+    $endDate.textContent = data.endDate;
+    $exhibitAddress.textContent = data.exhibitAddress;
 
-    $exhibitionInfo.innerHTML =
-        `<ul>
-        <li>
-            <span class="subject" style="font-weight: bold;"><strong>제목</strong></span>
+    $exhibitionInfo.innerHTML = `
+        <div class="columns">
+            <span class="column is-one-quarter" style="font-weight: bold;"><strong>제목</strong></span>
             <span class="column">${data.exhibitName}</span>
-            </li>
-        <li>
-            <span class="subject" style="font-weight: bold;"><strong>작가</strong></span>
+        </div>
+        <div class="columns">
+            <span class="column is-one-quarter" style="font-weight: bold;"><strong>작가</strong></span>
             <span class="column">${data.author}</span>
-            </li>
-        <li>
-            <span class="subject" style="font-weight: bold;"><strong>전시 장소</strong></span>
-            <span class="" id="${data.exhibitAddress}"></span>
-        </li> 
-        <li>
-            <span class="subject" style="font-weight: bold;"><strong>가격</strong></span>
-            <span class="" id="${data.price}"></span>원
-        </li>
-        <li>
-            <span class="subject" style="font-weight: bold;"><strong>전시 기간</strong></span>
-            <span class="">${data.startDate} ~ ${data.endDate}</span>
-        </li>
-    </ul>  
+        </div>
     `;
 }
+
+// function getProductId(){
+//     var path=window.location.pathname
+
+//     return path.split('/')[3]
+// }
