@@ -1,11 +1,11 @@
 let value;
 
-window.onload=async function(){
+window.onload = async function () {
     let queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
-    urlParams.forEach(function(a){
-        value=a;
+    urlParams.forEach(function (a) {
+        value = a;
     });
 
     console.log(value);
@@ -66,23 +66,23 @@ async function getExhibitionName() {
     const $startDate = document.querySelector('#startDate')
     const $endDate = document.querySelector('#endDate')
     const $location = document.querySelector('#location')
-    const $image = document.querySelector('#image')
+    const $image = document.querySelector('.img-container img');
+
+    const imageUrl = data.imageUrl;
 
     const res = await fetch(`http://localhost:5001/api/exhibits?${value}`);
-    const data = await res.json(); 
+    const data = await res.json();
     console.log(data)
-    
-    $exhibitName.textContent = data.exhibitName;
-    $price.textContent =data.price
-    $startDate.textContent=data.startDate
-    $endDate.textContent=data.endDate
-    $location.textContent=data.exhibitAddress
-    $image=data.image
 
-    // console.log($exhibitName);
+    $exhibitName.textContent = data.exhibitName
+    $price.textContent = data.price
+    $startDate.textContent = data.startDate
+    $endDate.textContent = data.endDate
+    $location.textContent = data.exhibitAddress
+    $image.src = imageUrl;
 
-    $exhibitionInfo.innerHTML = 
-    `<ul>
+    $exhibitionInfo.innerHTML =
+        `<ul>
         <li>
             <span class="subject" style="font-weight: bold;"><strong>제목</strong></span>
             <span class="column">${data.exhibitName}</span>
