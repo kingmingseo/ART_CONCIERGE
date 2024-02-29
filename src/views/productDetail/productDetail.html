@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="../public/Footer/footer.css" />
 
     <link rel="stylesheet" href="./productDetail.css" />
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
     <script src="./productDetail.js" type="module" defer></script>
 </head>
 
@@ -65,30 +66,30 @@
                     </div>
 
                     <!--작품 설명-->
-                    <div class="column is-5">
+                    <div class="column is-5" id="insertExhibitionName">
                         <ul>
-                            <li>
+                            <!-- <li>
                                 <span class="title subject" style="font-weight: bold;"><strong>제목</strong></span>
-                                <span class="" id="exhibitName">An Insane Desire for You</span>
+                                <span class="" id="exhibitName"> </span>
                             </li>
                             <li>
                                 <span class="subject" style="font-weight: bold;"><strong>작가</strong></span>
-                                <span class="" id="author">트레이시 에민</span>
+                                <span class="" id="author"> </span>
                             </li>
                             <li>
                                 <span class="subject" style="font-weight: bold;"><strong>전시
                                         장소</strong></span>
-                                <span class="" id="location">아모레퍼시픽 용산</span>
+                                <span class="" id="location"> </span>
                             </li>
                             <li>
                                 <span class=" subject" style="font-weight: bold;"><strong>가격</strong></span>
-                                <span class="" id="price">50000</span>원
+                                <span class="" id="price"> </span>원
                             </li>
                             <li>
                                 <span class=" subject" style="font-weight: bold;"><strong>전시
                                         기간</strong></span>
-                                <span class="">10일</span>
-                            </li>
+                                <span class=""></span>
+                            </li>!-->
 
                             <li>
                                 <span class="subject" style="font-weight: bold;"><strong>수량</strong></span>
@@ -104,7 +105,9 @@
                                     </div>
                                 </div>
                             </li>
+                            <script src="./productDetail.js" ></script>
                         </ul>
+
                         <!--장바구니 버튼-->
                         <div class="btn-container mt-6">
                             <button class="button is-fullwidth has-text-weight-bold" id="addCart">장바구니 추가</button>
