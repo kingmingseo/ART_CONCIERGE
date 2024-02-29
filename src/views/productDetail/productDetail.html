@@ -21,20 +21,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
 
     <!-- Custom CSS & JS -->
-    <script src="../public/loadHTML.js"></script>
-    <link rel="stylesheet" href="../public/Header/header.css" />
-    <link rel="stylesheet" href="../public/Footer/footer.css" />
+    <script src="/public/loadHTML.js"></script>
+    <link rel="stylesheet" href="/public/Header/header.css" />
+    <link rel="stylesheet" href="/public/Footer/footer.css" />
 
     <link rel="stylesheet" href="./productDetail.css" />
-    <script src="./node_modules/axios/dist/axios.min.js"></script>
-    <script src="./productDetail.js" type="module" defer></script>
+    <script src="productDetail.js" type="module" defer></script>
+
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
 
     <!-- Header -->
     <script>
-        loadHTML("../public/Header/header.html");
+        loadHTML("/public/Header/header.html");
     </script>
     <div class="modal">
         <div class="modal-background"></div>
@@ -66,30 +68,31 @@
                     </div>
 
                     <!--작품 설명-->
-                    <div class="column is-5" id="insertExhibitionName">
+                    <div class="column is-5" id="exhibitionInfo">
+                        <script src="./productDetail.js"></script>
                         <ul>
                             <!-- <li>
                                 <span class="title subject" style="font-weight: bold;"><strong>제목</strong></span>
-                                <span class="" id="exhibitName"> </span>
+                                <span class="" id="exhibitName"></span>
                             </li>
                             <li>
                                 <span class="subject" style="font-weight: bold;"><strong>작가</strong></span>
-                                <span class="" id="author"> </span>
+                                <span class="" id="author">트레이시 에민</span>
                             </li>
                             <li>
                                 <span class="subject" style="font-weight: bold;"><strong>전시
-                                        장소</strong></span>
-                                <span class="" id="location"> </span>
+                                        장소</strong></span> -->
+                                <!-- <span class="" id="location">아모레퍼시픽 용산</span>
                             </li>
                             <li>
-                                <span class=" subject" style="font-weight: bold;"><strong>가격</strong></span>
-                                <span class="" id="price"> </span>원
+                                <span class="subject" style="font-weight: bold;"><strong>가격</strong></span>
+                                <span class="" id="price">50000</span>원
                             </li>
                             <li>
-                                <span class=" subject" style="font-weight: bold;"><strong>전시
+                                <span class="subject" style="font-weight: bold;"><strong>전시
                                         기간</strong></span>
-                                <span class=""></span>
-                            </li>!-->
+                                <span class="">10일</span>
+                            </li> -->
 
                             <li>
                                 <span class="subject" style="font-weight: bold;"><strong>수량</strong></span>
@@ -104,10 +107,8 @@
                                         <button class="plus button is-warning is-light">+</button>
                                     </div>
                                 </div>
-                            </li>
-                            <script src="./productDetail.js" ></script>
+                            </li> 
                         </ul>
-
                         <!--장바구니 버튼-->
                         <div class="btn-container mt-6">
                             <button class="button is-fullwidth has-text-weight-bold" id="addCart">장바구니 추가</button>
@@ -160,7 +161,7 @@
     </main>
     <!-- Footer -->
     <script>
-        loadHTML("../public/Footer/footer.html");
+        loadHTML("/public/Footer/footer.html");
     </script>
 
 </body>
