@@ -6,7 +6,7 @@ async function postCart(req, res, next) {
   const { exhibitId, quantity } = req.body;
   try {
     const cart = await cartService.addCart(exhibitId, quantity);
-    res.json({ item: cart.item });
+    res.json({ cart });
   } catch (error) {
     res.json(error);
   }

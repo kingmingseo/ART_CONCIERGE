@@ -1,9 +1,8 @@
-const { Exhibit, Cart } = require("../db/index.js");
+const { Cart } = require("../db/index.js");
 
 //장바구니 추가
 async function addCart(exhibitId, quantity) {
-  // const existCart = await Order.findCartByExhibitId(exhibitId); => model 사용했을때
-  const existCart = await Exhibit.findOne({ "item.exhibitId": exhibitId });
+  const existCart = await Cart.findOne({ "item.exhibitId": exhibitId });
 
   if (existCart) {
     for (let item of existCart.item) {
@@ -15,8 +14,17 @@ async function addCart(exhibitId, quantity) {
     await existCart.save();
     return existCart;
   } else {
-    const newCart = await Order.create({
-      item: [{ exhibitId, quantity }],
+    const newCart = await Cart.create({
+      item: [
+        {
+          exhibitId,
+          exhibitName,
+          quantity,
+          price,
+          image,
+        },
+      ],
+      totalPrice: price * quantity, // 초기 totalPrice 설정
     });
     return newCart;
   }
