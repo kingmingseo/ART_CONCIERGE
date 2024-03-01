@@ -1,7 +1,3 @@
-
-import { response } from 'express';
-
-import { response } from 'express';
 import { getDB } from '../../../indexedDB.js';
 
 const db = await getDB();
@@ -13,11 +9,12 @@ const $exhibitionInfo = document.querySelector('#exhibitionInfo');
 const $modal = document.querySelector('.modal')
 const $modalCheck = document.querySelector('#modalCheck')
 
+
 const currentUrl = window.location.href;
 const match = currentUrl.match(/\/exhibits\/productDetail\/([^\/]+)/);
 const exhibitId = match[1]
 
-insertExhibitionInfo();
+insertExhibitionName();
 
 $modalCheck.addEventListener('click', () => {
     $modal.classList.remove('is-active')
@@ -40,50 +37,35 @@ $addCart.addEventListener('click', () => {
     let store = db.transaction('shoppingCart', 'readwrite').objectStore('shoppingCart');
     let addReq = store.add({
         exhibitId: exhibitId,
-        exhibitId: exhibitId,
         exhibitName: document.querySelector('#exhibitName').textContent,
         quantity: document.querySelector('#quantity').textContent,
         price: document.querySelector('#price').textContent,
-        quantity: document.querySelector('#quantity').textContent,
-        price: document.querySelector('#price').textContent,
+        exhibitImg : document.querySelector('#exhibitImg').src,
     });
     addReq.addEventListener('success', function (event) {
         console.log(event);
     });
+    $modal.classList.add('is-active')
+
 });
 
-getExhibition()
-
-async function insertExhibitionInfo() {
-    const $exhibitName = document.querySelector('#exhibitName');
-    const $price = document.querySelector('#price');
-    const $startDate = document.querySelector('#startDate');
-    const $endDate = document.querySelector('#endDate');
-    const $exhibitAddress = document.querySelector('#exhibitAddress');
-
-    const res = await fetch(url);
+async function insertExhibitionName() {
+    const $exhibitName = document.querySelector('#exhibitName')
+    const $price = document.querySelector('#price')
+    const $startDate = document.querySelector('#startDate')
+    const $endDate = document.querySelector('#endDate')
+    const $location = document.querySelector('#location')
+    const $exhibitImg = document.querySelector('#exhibitImg')
+    const res = await fetch(`/api/exhibits/detail/${exhibitId}`);
     const data = await res.json();
-
+    console.log(data)
     $exhibitName.textContent = data.exhibitName;
-    $price.textContent = data.price;
-    $startDate.textContent = data.startDate;
-    $endDate.textContent = data.endDate;
-    $exhibitAddress.textContent = data.exhibitAddress;
+    $price.textContent =data.price
+    $startDate.textContent=data.startDate
+    $endDate.textContent=data.endDate
+    $location.textContent=data.exhibitAddress
+    $exhibitImg.src = data.image
+    console.log(exhibitName);
 
-    $exhibitionInfo.innerHTML = `
-        <div class="columns">
-            <span class="column is-one-quarter" style="font-weight: bold;"><strong>제목</strong></span>
-            <span class="column">${data.exhibitName}</span>
-        </div>
-        <div class="columns">
-            <span class="column is-one-quarter" style="font-weight: bold;"><strong>작가</strong></span>
-            <span class="column">${data.author}</span>
-        </div>
-    `;
+    $exhibitionInfo.textContent = data.information
 }
-
-// function getProductId(){
-//     var path=window.location.pathname
-
-//     return path.split('/')[3]
-// }
