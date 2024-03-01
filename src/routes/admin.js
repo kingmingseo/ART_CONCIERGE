@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const router = Router();
 const a_ExhibitController = require('../controller/admin-exhibit-controller');
-const a_ExhibitController = require('../controller/admin-exhibit-controller');
 const a_CategoryController = require("../controller/admin-category-controller");
 const adminOrderController = require("../controller/admin-order-controller");
 const upload = require("../middlewares/image-middleware");

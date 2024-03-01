@@ -1,14 +1,14 @@
 
 import { response } from 'express';
+
+import { response } from 'express';
 import { getDB } from '../../../indexedDB.js';
 
-const db = await getDB();
 const db = await getDB();
 const $minusButton = document.querySelector('.minus');
 const $plusButton = document.querySelector('.plus');
 const $countElement = document.querySelector('.cartCount');
 const $addCart = document.querySelector('#addCart')
-const $exhibitionInfo = document.querySelector('#exhibitionInfo');
 const $exhibitionInfo = document.querySelector('#exhibitionInfo');
 const $modal = document.querySelector('.modal')
 const $modalCheck = document.querySelector('#modalCheck')
@@ -51,11 +51,6 @@ $addCart.addEventListener('click', () => {
         console.log(event);
     });
 });
-
-// function getExhibition(){
-//     fetch(`http://localhost:5001/api/exhibits/65dea2262f8985a75a3382e1`)
-//     .then(response=>console.log(response)).catch(response=>console.log(response))
-// }
 
 getExhibition()
 
